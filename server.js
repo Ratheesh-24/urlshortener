@@ -1,6 +1,5 @@
 const express=require('express');
 const mongoose=require('mongoose');
-const shortUrl = require('./models/shortUrl');
 const app=express();
 const ShortUrl=require('./models/shortUrl');
 mongoose.connect('mongodb://localhost/urlShortener',{
@@ -19,7 +18,7 @@ res.redirect('/');
 
 app.get('/:shortUrl',async(req, res)=>{
     const shortUrl=await ShortUrl.findOne({ short: req.params.shortUrl })
- if(shortUrl==null)return res.send(404)
+ if(shortUrl==null)return res.sendStatus(404)
  
  shortUrl.clicks++;
  shortUrl.save();
